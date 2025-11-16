@@ -1,14 +1,14 @@
+import { Button, ButtonText } from "@/components/ui/button";
+import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Toast,
   ToastTitle,
   ToastDescription,
   useToast,
 } from "@/components/ui/toast";
-import { Button, ButtonText } from "@/components/ui/button";
-import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Deail() {
+const Deali = () => {
   const toast = useToast();
   const [toastId, setToastId] = useState(0);
   const handleToast = () => {
@@ -21,7 +21,7 @@ export default function Deail() {
     setToastId(newId);
     toast.show({
       id: newId.toString(),
-      placement: "bottom",
+      placement: "top",
       duration: 3000,
       render: ({ id }) => {
         const uniqueToastId = "toast-" + id;
@@ -37,13 +37,21 @@ export default function Deail() {
     });
   };
   return (
-    <SafeAreaView>
-      <Button onPress={handleToast}>
-        <ButtonText>Press Me</ButtonText>
+    <SafeAreaView className="flex-1 bg-white items-center justify-center">
+      <Button>
+        <ButtonText
+          onPress={() => {
+            handleToast();
+          }}
+        >
+          Click Me
+        </ButtonText>
       </Button>
     </SafeAreaView>
   );
-}
+};
+
+export default Deali;
 
 {
   /*import { useState } from "react";
@@ -52,7 +60,6 @@ import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-
 import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
 import Zocial from "@expo/vector-icons/Zocial";
