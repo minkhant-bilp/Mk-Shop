@@ -1,60 +1,4 @@
-import { Button, ButtonText } from "@/components/ui/button";
 import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Toast,
-  ToastTitle,
-  ToastDescription,
-  useToast,
-} from "@/components/ui/toast";
-
-const Deali = () => {
-  const toast = useToast();
-  const [toastId, setToastId] = useState(0);
-  const handleToast = () => {
-    if (!toast.isActive(toastId.toString())) {
-      showNewToast();
-    }
-  };
-  const showNewToast = () => {
-    const newId = Math.random();
-    setToastId(newId);
-    toast.show({
-      id: newId.toString(),
-      placement: "top",
-      duration: 3000,
-      render: ({ id }) => {
-        const uniqueToastId = "toast-" + id;
-        return (
-          <Toast nativeID={uniqueToastId} action="muted" variant="solid">
-            <ToastTitle>Hello!</ToastTitle>
-            <ToastDescription>
-              This is a customized toast message.
-            </ToastDescription>
-          </Toast>
-        );
-      },
-    });
-  };
-  return (
-    <SafeAreaView className="flex-1 bg-white items-center justify-center">
-      <Button>
-        <ButtonText
-          onPress={() => {
-            handleToast();
-          }}
-        >
-          Click Me
-        </ButtonText>
-      </Button>
-    </SafeAreaView>
-  );
-};
-
-export default Deali;
-
-{
-  /*import { useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -64,10 +8,10 @@ import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
 import Zocial from "@expo/vector-icons/Zocial";
 import { Badge, BadgeText } from "@/components/ui/badge";
-import ViewPager from "@/data/ui/Pagerview";
+import ViewPager from "../../../data/ui/Pagerview";
 import { VStack } from "@/components/ui/vstack";
 import { products } from "@/data";
-import { Button, ButtonText } from "@/components/ui/button";
+import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
 import {
   Toast,
   ToastTitle,
@@ -91,7 +35,7 @@ import {
   CheckboxIcon,
   CheckboxLabel,
 } from "@/components/ui/checkbox";
-import { CheckIcon } from "@/components/ui/icon";
+import { AddIcon, CheckIcon, RemoveIcon } from "@/components/ui/icon";
 
 const Deali = () => {
   const { id } = useLocalSearchParams();
@@ -105,6 +49,7 @@ const Deali = () => {
   const handleClose = () => setShowActionsheet(false);
   const toast = useToast();
   const [toastId, setToastId] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const handleToast = (title: string, description: string) => {
     if (!toast.isActive(toastId.toString())) {
       showNewToast(title, description);
@@ -269,25 +214,41 @@ const Deali = () => {
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
           <ActionsheetItem onPress={handleClose}>
-            <ActionsheetItemText>Edit Message</ActionsheetItemText>
+            <ActionsheetItemText bold className="text-lg">
+              Choose Size And color
+            </ActionsheetItemText>
           </ActionsheetItem>
           <ActionsheetItem onPress={handleClose}>
-            <ActionsheetItemText>Mark Unread</ActionsheetItemText>
+            <ActionsheetItemText>
+              {color.join(" ,")} - {size.join(" ")}
+            </ActionsheetItemText>
           </ActionsheetItem>
           <ActionsheetItem onPress={handleClose}>
-            <ActionsheetItemText>Remind Me</ActionsheetItemText>
+            <ActionsheetItemText>You Set is Quantily</ActionsheetItemText>
           </ActionsheetItem>
           <ActionsheetItem onPress={handleClose}>
-            <ActionsheetItemText>Add to Saved Items</ActionsheetItemText>
+            <ActionsheetItemText>{quantity}</ActionsheetItemText>
           </ActionsheetItem>
-          <ActionsheetItem isDisabled onPress={handleClose}>
-            <ActionsheetItemText>Delete</ActionsheetItemText>
-          </ActionsheetItem>
+          <HStack>
+            <Button className="flex-1 bg-sky-500">
+              <ButtonText>Increet</ButtonText>
+              <ButtonIcon as={AddIcon} />
+            </Button>
+            <Button className="flex-1 bg-sky-500">
+              <ButtonText>Increet</ButtonText>
+              <ButtonIcon as={RemoveIcon} />
+            </Button>
+          </HStack>
+          <Button>
+            <ButtonText>Confirm</ButtonText>
+          </Button>
+          <Button>
+            <ButtonText>Cancle</ButtonText>
+          </Button>
         </ActionsheetContent>
       </Actionsheet>
     </SafeAreaView>
   );
 };
 
-export default Deali;*/
-}
+export default Deali;
